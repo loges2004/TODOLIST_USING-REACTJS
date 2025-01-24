@@ -7,6 +7,7 @@ import Content from './Content';
 import Footer from './Footer';
 
 
+
 function App() {
    const [items, setItems] = useState(() => {
       const savedItems = localStorage.getItem("todo_list");
@@ -59,18 +60,22 @@ function App() {
       setItems([...items, newItem]);
       setNewTask("");
     };
-  
+
+  const [search,setSearch] = useState('')
+
   return (
    <div>
 <Header title="TODOLIST"/>
 <Content 
-  items={items}
+ items={items.filter(item => (item.item.toLowerCase()).includes(search.toLowerCase()))}
   setItems={setItems}
   newTask={newTask}
   setNewTask={setNewTask}
-  handleCheck={handleCheck}
+  handleCheck={handleCheck} 
   handleDelete={handleDelete}
   handleNewTask={handleNewTask}
+  search={search}
+  setSearch={setSearch}
 />
 
 <Footer length={items.length} />
