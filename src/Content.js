@@ -2,6 +2,7 @@ import React from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import SearchItem from "./SearchItem";
 
+
 const highlighText = (text,search) =>{
 if(!search) 
   return text
@@ -15,30 +16,43 @@ return parts.map((part,index) =>
 );
 
 };
-const Content = ({ items, setItems, newTask, setNewTask, handleCheck, handleDelete, handleNewTask,search,setSearch })=> {
- 
+const Content = ({ items, setItems, newTask, setNewTask, handleCheck, handleDelete, handleNewTask,search,setSearch ,inputRef})=> {
+
+
+
+
+ const handleSubmit = (e) =>{
+   e.preventDefault();
+   handleNewTask();
+   inputRef.current.focus();
+ }
   return (
     <main className="flex-grow-1 mt-5 pt-5">
       <p className="display-5 text-capitalize text-center mb-4">Let's add the task</p>
-      <div className="container text-center d-flex align-items-center">
+      
+      <form onSubmit={handleSubmit}>
+        <div className="container text-center d-flex align-items-center">
         <label className="me-2 mb-3 fw-bolder fs-5" htmlFor="newTask">
           TASK:
         </label>
         <input
           className="form-control mb-2"
           type="text"
+          ref={inputRef}
           id="newTask"
           value={newTask}
           placeholder="Enter the new task to add to the list"
           onChange={(e) => setNewTask(e.target.value)}
         />
-        <button
+        <button type="submit"
           className="btn btn-secondary btn-sm text-light text-uppercase mx-4 mb-2 fw-bolder w-50 h-25"
-          onClick={handleNewTask}
+      
         >
           Add Task
         </button>
+        
       </div>
+      </form>
 
       <SearchItem search={search} setSearch={setSearch}/>
       <div className="container text-center">
@@ -66,7 +80,9 @@ const Content = ({ items, setItems, newTask, setNewTask, handleCheck, handleDele
                 </div>
                 <button
                   className="btn btn-danger text-black"
-                  onClick={() => handleDelete(item.id)}
+                  onClick={() => {handleDelete(item.id);
+                    inputRef.current.focus();
+                  }}
                 >
                   <FaTrashAlt role="button" tabIndex="0" />
                 </button>
@@ -75,6 +91,7 @@ const Content = ({ items, setItems, newTask, setNewTask, handleCheck, handleDele
           </ul>
         ) : (
           <p className="text-muted">Your list is empty</p>
+
         )}
       </div>
     </main>
