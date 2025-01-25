@@ -61,7 +61,7 @@ const Content = ({ items, setItems, newTask, setNewTask, handleCheck, handleDele
                     className={item.checked ? "text-decoration-line-through" : ""}
                     htmlFor={`check-${item.id}`}
                   >
-                  {highlighText(item.item,search)}
+                  {highlighText(item.item  ,search)}
                   </label>
                 </div>
                 <button
