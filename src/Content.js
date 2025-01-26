@@ -16,7 +16,7 @@ return parts.map((part,index) =>
 );
 
 };
-const Content = ({ items, setItems, newTask, setNewTask, handleCheck, handleDelete, handleNewTask,search,setSearch ,inputRef})=> {
+const Content = ({ items, setItems, newTask, setNewTask, handleCheck, handleDelete, handleNewTask,search,setSearch ,inputRef,isLoading,fetchError})=> {
 
 
 
@@ -27,8 +27,8 @@ const Content = ({ items, setItems, newTask, setNewTask, handleCheck, handleDele
    inputRef.current.focus();
  }
   return (
-    <main className="flex-grow-1 mt-5 pt-5">
-      <p className="display-5 text-capitalize text-center mb-4">Let's add the task</p>
+    <>
+      <p className="display-5 text-capitalize text-center mb-4 mt-4">Let's add the task</p>
       
       <form onSubmit={handleSubmit}>
         <div className="container text-center d-flex align-items-center">
@@ -55,7 +55,11 @@ const Content = ({ items, setItems, newTask, setNewTask, handleCheck, handleDele
       </form>
 
       <SearchItem search={search} setSearch={setSearch}/>
+      {isLoading && <p className="text-center mt-3 text-muted">Loading items...</p>}
+      {!isLoading && !fetchError &&  (
+        
       <div className="container text-center">
+        
         {items.length > 0 ? (
           <ul className="list-group mt-4">
             {items.map((item) => (
@@ -89,12 +93,14 @@ const Content = ({ items, setItems, newTask, setNewTask, handleCheck, handleDele
               </li>
             ))}
           </ul>
+          
         ) : (
           <p className="text-muted">Your list is empty</p>
 
         )}
       </div>
-    </main>
+      )}
+    </>
   );
 };
 

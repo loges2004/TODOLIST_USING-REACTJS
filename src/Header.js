@@ -3,7 +3,7 @@ import React from 'react'
 const Header = (props) => {
   return (
    
-<header className='display-6 bg-primary text-white py-3 fixed-top'>
+<header className='display-6 bg-primary text-white py-3 '>
 <div className='container text-center'>
   {props.title}
 </div>
